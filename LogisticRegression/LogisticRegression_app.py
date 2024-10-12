@@ -8,7 +8,7 @@ from LogisticRegression_model import load_data, train_model
 def run_ui(model, df, accuracy, precision, recall, f1):
     st.title("Chỉ số của mô hình")
     st.write("Số lượng mẫu:", df.shape[0])
-    st.write("Số lượng biến:", df.shape[1])
+    st.write("Số lượng biến đầu vào :", df.shape[1] - 1)
     st.write("Số lượng nhóm:", df["HeartDisease"].value_counts())
     st.title("Đánh giá mô hình dự đoán bệnh tim")
     metrics_df = pd.DataFrame(
