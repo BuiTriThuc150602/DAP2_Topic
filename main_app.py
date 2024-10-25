@@ -2,13 +2,13 @@ import streamlit as st
 import pandas as pd
 
 
-from LogisticRegression_model import load_data, train_model
+from LogisticRegression_model import load_data, train_model_Linear_regression
 
 
 def run_ui(model, df, accuracy, precision, recall, f1):
     st.title("Chỉ số của mô hình")
     st.write("Số lượng mẫu:", df.shape[0])
-    st.write("Số lượng biến:", df.shape[1])
+    st.write("Số lượng biến đầu vào :", df.shape[1] - 1)
     st.write("Số lượng nhóm:", df["HeartDisease"].value_counts())
     st.title("Đánh giá mô hình dự đoán bệnh tim")
     metrics_df = pd.DataFrame(
@@ -43,7 +43,7 @@ def run_ui(model, df, accuracy, precision, recall, f1):
 
     with col1:
         bmi = st.number_input(
-            "Chỉ số BMI", min_value=10.0, max_value=50.0, value=25.0, step=0.1
+            "Chỉ số BMI", min_value=10.0, max_value=100.0, value=25.0, step=0.1
         )
         smoking = st.selectbox("Hút thuốc", ["Yes", "No"])
         physical_health = st.number_input(
@@ -108,5 +108,5 @@ def run_ui(model, df, accuracy, precision, recall, f1):
 
 
 df = load_data()
-model, accuracy, precision, recall, f1 = train_model(df)
+model, accuracy, precision, recall, f1 = train_model_Linear_regression(df)
 run_ui(model, df, accuracy, precision, recall, f1)
