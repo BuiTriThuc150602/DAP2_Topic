@@ -5,9 +5,10 @@ from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import OneHotEncoder
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
 import pandas as pd
+import streamlit as st
 
 
-# @st.cache_data
+@st.cache_data
 def load_data():
     df = pd.read_csv("../data/heart_2020_cleaned.csv")
     df["HeartDisease"] = df["HeartDisease"].map({"Yes": 1, "No": 0})
@@ -17,7 +18,7 @@ def load_data():
     return df
 
 
-# @st.cache_resource
+@st.cache_resource
 def build_model(df):
     categorical_cols = df.select_dtypes(exclude=["number"]).columns
     preprocessor = ColumnTransformer(
@@ -36,6 +37,7 @@ def build_model(df):
     return model
 
 
+@st.cache_data
 def train_with_kfold(df, k=5):
     X = df.drop("HeartDisease", axis=1)
     y = df["HeartDisease"]
@@ -64,6 +66,7 @@ def train_with_kfold(df, k=5):
     return train_scores, test_scores
 
 
+@st.cache_data
 def evaluate_model():
     df = load_data()
     model = build_model(df)
