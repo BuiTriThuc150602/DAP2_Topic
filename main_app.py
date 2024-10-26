@@ -1,8 +1,8 @@
 import streamlit as st
 import pandas as pd
 
-
-from LogisticRegression_model import load_data, train_model_Linear_regression
+from LogisticRegression.LogisticRegression_model import load_data, build_model, train_with_kfold, evaluate_model
+# from RandomForest.Random_model import load_data, train_model_RF
 
 
 def run_ui(model, df, accuracy, precision, recall, f1):
@@ -108,5 +108,8 @@ def run_ui(model, df, accuracy, precision, recall, f1):
 
 
 df = load_data()
-model, accuracy, precision, recall, f1 = train_model_Linear_regression(df)
+model = build_model(df)
+accuracy, precision, recall, f1 = evaluate_model()
+
+# model,df_encoded, accuracy, precision, recall, f1 = train_model_RF(df)
 run_ui(model, df, accuracy, precision, recall, f1)
