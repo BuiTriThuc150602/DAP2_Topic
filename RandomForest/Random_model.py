@@ -10,7 +10,7 @@ from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_sc
 
 @st.cache_data
 def load_data():
-    df = pd.read_csv("DAP2_Topic\data\heart_2020_cleaned.csv")
+    df = pd.read_csv("../data/heart_2020_cleaned.csv")
     df["HeartDisease"] = df["HeartDisease"].map({"Yes": 1, "No": 0})
     df["Diabetic"] = df["Diabetic"].replace(
         {"No, borderline diabetes": "No", "Yes (during pregnancy)": "Yes"}
@@ -37,7 +37,10 @@ def train_model(df):
     model = Pipeline(
         steps=[
             ("preprocessor", preprocessor),
-            ("classifier", RandomForestClassifier(n_estimators=100)),  # Set initial n_estimators
+            (
+                "classifier",
+                RandomForestClassifier(n_estimators=100),
+            ),  # Set initial n_estimators
         ]
     )
     model.fit(X_train, y_train)
@@ -68,5 +71,11 @@ st.write(f"Độ chính xác: {accuracy:.4f}")
 st.write(f"Precision: {precision:.4f}")
 st.write(f"Recall: {recall:.4f}")
 st.write(f"F1-score: {f1:.4f}")
+metrics_df = pd.DataFrame(
+    {
+        "Metric": ["Accuracy", "Precision", "Recall", "F1 Score"],
+        "Score": [accuracy, precision, recall, f1],
+    }
+)
 
-
+st.bar_chart(metrics_df.set_index("Metric"))
