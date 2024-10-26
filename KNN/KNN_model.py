@@ -10,7 +10,7 @@ import pandas as pd
 
 @st.cache_data
 def load_data():
-    df = pd.read_csv("DAP2_Topic\data\heart_2020_cleaned.csv")
+    df = pd.read_csv("../data/heart_2020_cleaned.csv")
     df["HeartDisease"] = df["HeartDisease"].map({"Yes": 1, "No": 0})
     df["Diabetic"] = df["Diabetic"].replace(
         {"No, borderline diabetes": "No", "Yes (during pregnancy)": "Yes"}
