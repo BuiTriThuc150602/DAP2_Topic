@@ -5,7 +5,7 @@ from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import OneHotEncoder
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
 import streamlit as st
-import pandas as pd
+import pandas as pd;
 
 
 # @st.cache_data
